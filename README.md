@@ -18,7 +18,7 @@
 
 在`plugins/BanExplosion/config/config.json`中，你可以设置拦截爆炸的实体，以及爆炸参数。
 
-```json
+```jsonc
 {
     "version": 1, // 版本
     "PluginEnabled": true, // 插件总开关
