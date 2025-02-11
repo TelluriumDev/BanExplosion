@@ -1,25 +1,26 @@
 {
     "format_version": 2,
-    "tooth": "my-mod",
-    "version": "0.0.0",
+    "tooth": "BanExplosion",
+    "version": "1.0.0",
     "info": {
-        "name": "My Mod Name",
-        "description": "My Mod Description",
-        "author": "My Name",
+        "name": "BanExplosion",
+        "description": "A Plugin to control explosions in LeviLamina",
+        "author": "TelluriumDev",
         "tags": [
             "platform:levilamina",
             "type:mod"
         ]
     },
-    "asset_url": "My Asset Url",
+    "asset_url": "https://github.com/TelluriumDev/BanExplosion/releases/latest/download/BanExplosion-windows-x64.zip",
     "prerequisites": {
-        "github.com/LiteLDev/LeviLamina": "My LeviLamina Dependency Version"
+        "github.com/LiteLDev/LeviLamina": "1.0.1",
+        "github.com/MiracleForest/iListenAttentively-Release": "0.2.3"
     },
     "files": {
         "place": [
             {
-                "src": "my-mod/*",
-                "dest": "plugins/my-mod/"
+                "src": "BanExplosion/*",
+                "dest": "plugins/BanExplosion/"
             }
         ]
     }
