@@ -1,35 +1,95 @@
-# LeviLamina Mod Template
+# BanExplosion
 
-A LeviLamina mod template
+一个可以制止爆炸，或是让爆炸变得无害的插件。
 
-This mod is a template for developing LeviLamina mods.
+## 功能
 
-## Install
+- 可自由设置实体
+- 可控制的爆炸参数
+- 可自定义拦截爆炸
 
-Generate a new repository from this template.
+## 安装
 
-## Usage
+在安装之前，确保你安装了`ilistenattentively`插件。
 
-Before using this mod template, make sure that you have installed XMake and a Minecraft Bedrock Server with LeviLamina.
+之后，在Releases或者Action中下载最新版本的压缩包，并把里面的内容解压到`plugins`文件夹中。
 
-1. Clone the new repository into a local folder.
+## 配置
 
-1. Change the mod name and the expected LeviLamina version in `xmake.lua`.
+在`plugins/BanExplosion/config/config.json`中，你可以设置拦截爆炸的实体，以及爆炸参数。
 
-1. Add your code.
-
-1. Run `xmake repo -u` in the root of the repository.
-
-1. Run `xmake` to build the mod.
-
-Now the build is complete at `bin/`.
-
-## Contributing
-
-Ask questions by creating an issue.
-
-PRs accepted.
-
-## License
-
-CC0-1.0 © LiteLDev
+```jsonc
+{
+    "version": 1, // 版本
+    "PluginEnabled": true, // 插件总开关
+    "defaultSetting": { // 默认设置
+        "allowExplosion": true, // 是否允许爆炸
+        "allowDestroy": true, // 是否允许破坏
+        "allowFire": true // 是否产生火焰  
+    },
+    "explosionSetting": {
+        "minecraft:tnt": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        // 需要注意的是，床和重生锚只有第一个开关有作用
+        // 受底层限制，我们做不了太多。
+        "minecraft:bed": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:respawn_anchor": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:tnt_minecart": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:creeper": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:ender_dragon": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:end_crystal": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:wither_skull": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:wither_skull_dangerous": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:fireball": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:dragon_fireball": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        },
+        "minecraft:wither": {
+            "allowExplosion": true,
+            "allowDestroy": false,
+            "allowFire": false
+        }
+    }
+}
+```
