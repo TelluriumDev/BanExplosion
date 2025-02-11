@@ -1,15 +1,17 @@
 {
-  "name": "${modName}",
-  "entry": "${modFile}",
-  "version": "${modVersion}",
-  "type": "native",
-  "extraInfo": {
-    "sentryDsn": "https://6bc1177dae9c5ac2ad11c60d4432d76a@o4508796501819392.ingest.de.sentry.io/4508801337196624",
-    "sentryUploadType": "all"
-  },
-  "dependencies": [
-    {
-      "name": "iListenAttentively"
-    }
-  ]
+    "name": "${modName}",
+    "entry": "${modFile}",
+    "version": "${modVersion}",
+    "type": "native",
+    "author": "TelluriumDev",
+    "description": "A Plugin to control explosions in LeviLamina",
+    "extraInfo": {
+        "sentryDsn": "https://6bc1177dae9c5ac2ad11c60d4432d76a@o4508796501819392.ingest.de.sentry.io/4508801337196624",
+        "sentryUploadType": "all"
+    },
+    "dependencies": [
+        {
+            "name": "iListenAttentively"
+        }
+    ]
 }
