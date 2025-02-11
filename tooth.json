@@ -11,7 +11,7 @@
             "type:mod"
         ]
     },
-    "asset_url": "https://github.com/TelluriumDev/BanExplosion/releases/latest/download/BanExplosion-windows-x64.zip",
+    "asset_url": "https://github.com/TelluriumDev/BanExplosion/releases/download/$(version)/BanExplosion-windows-x64.zip",
     "prerequisites": {
         "github.com/LiteLDev/LeviLamina": "1.0.1",
         "github.com/MiracleForest/iListenAttentively-Release": "0.2.3"
