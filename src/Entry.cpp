@@ -27,10 +27,7 @@ LL_TYPE_INSTANCE_HOOK(
     BlockPos const& pos,
     uchar           face
 ) {
-    if (!player.getDimension().mayRespawnViaBed()) {
-        return false;
-    }
-    return origin(player, pos, face);
+    return player.getDimension().mayRespawnViaBed() ? origin(player, pos, face) : false;
 }
 
 LL_TYPE_STATIC_HOOK(RespawnAnchorBlockExplodeHook, HookPriority::Normal, RespawnAnchorBlock, &RespawnAnchorBlock::_explode, void, Player&, BlockPos const&, BlockSource&, Level&) {
@@ -44,9 +41,9 @@ Entry& Entry::getInstance() {
 bool Entry::load() {
     auto const& path = getSelf().getConfigDir() / "config.json";
     try {
-        ll::config::loadConfig(mConfig, path);
+        ll::config::loadConfig(getConfig(), path);
     } catch (...) {}
-    ll::config::saveConfig(mConfig, path);
+    ll::config::saveConfig(getConfig(), path);
     return true;
 }
 
