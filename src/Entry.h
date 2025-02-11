@@ -13,7 +13,7 @@ public:
 
     [[nodiscard]] ll::mod::NativeMod& getSelf() const { return mSelf; }
 
-    bool load() const;
+    bool load();
 
     bool enable();
 

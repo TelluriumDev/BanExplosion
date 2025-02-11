@@ -1,7 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
-add_repositories("miracleforest https://github.com/MiracleForest/xmake-repo")
+add_repositories("miracleforest-repo https://github.com/MiracleForest/xmake-repo")
 
 add_requires(
     "levilamina 1.0.1", {configs = {target_type = "server"}},
@@ -25,7 +25,8 @@ target("BanExplosion")
         "/w44296",
         "/w45263",
         "/w44738",
-        "/w45204"
+        "/w45204",
+        "/O2"
     )
     add_defines(
         "NOMINMAX", 

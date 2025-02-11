@@ -41,7 +41,7 @@ Entry& Entry::getInstance() {
     return instance;
 }
 
-bool Entry::load() const {
+bool Entry::load() {
     auto const& path = getSelf().getConfigDir() / "config.json";
     try {
         ll::config::loadConfig(mConfig, path);
