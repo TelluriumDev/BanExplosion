@@ -1,6 +1,6 @@
-#pragma once
-
-#include "ll/api/mod/NativeMod.h"
+#include "Config.h"
+#include <ll/api/event/ListenerBase.h>
+#include <ll/api/mod/NativeMod.h>
 
 namespace BanExplosion {
 
@@ -13,21 +13,20 @@ public:
 
     [[nodiscard]] ll::mod::NativeMod& getSelf() const { return mSelf; }
 
-    /// @return True if the mod is loaded successfully.
     bool load() const;
 
-    /// @return True if the mod is enabled successfully.
-    static bool enable();
+    bool enable();
 
-    /// @return True if the mod is disabled successfully.
-    static bool disable();
+    bool disable();
 
-    // TODO: Implement this method if you need to unload the mod.
-    // /// @return True if the mod is unloaded successfully.
-    static bool unload();
+    bool unload();
+
+    Config& getConfig() { return mConfig; }
 
 private:
-    ll::mod::NativeMod& mSelf;
+    ll::mod::NativeMod&    mSelf;
+    Config                 mConfig;
+    ll::event::ListenerPtr mListener;
 };
 
-} // namespace my_mod
+} // namespace BanExplosion
