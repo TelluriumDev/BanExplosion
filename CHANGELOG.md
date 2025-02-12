@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-2-12
+
+### Fixed
+
+- Fixed LL Memory Operator
 
 ## [1.0.0] - 2025-2-12
 
@@ -14,5 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release @zimuya4153 @Singl-Daemon
 
-[Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.1
 [1.0.0]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.0
