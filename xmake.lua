@@ -25,8 +25,7 @@ target("BanExplosion")
         "/w44296",
         "/w45263",
         "/w44738",
-        "/w45204",
-        "/O2"
+        "/w45204"
     )
     add_defines(
         "NOMINMAX", 

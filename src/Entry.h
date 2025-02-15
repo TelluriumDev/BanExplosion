@@ -24,9 +24,9 @@ public:
     Config& getConfig() { return mConfig; }
 
 private:
-    ll::mod::NativeMod&    mSelf;
-    Config                 mConfig;
-    ll::event::ListenerPtr mListener;
+    ll::mod::NativeMod&      mSelf;
+    Config                   mConfig;
+    ll::event::ListenerPtr   mListener;
 };
 
 } // namespace BanExplosion

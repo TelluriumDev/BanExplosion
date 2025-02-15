@@ -4,19 +4,18 @@
 
 ## 功能
 
-- 可自由设置实体
 - 可控制的爆炸参数
 - 可自定义拦截爆炸
 
 ## 安装
 
-在安装之前，确保你安装了`ilistenattentively`插件。
+在安装之前，确保你安装了[iListenAttentively](https://github.com/MiracleForest/iListenAttentively-Release)插件。
 
 之后，在Releases或者Action中下载最新版本的压缩包，并把里面的内容解压到`plugins`文件夹中。
 
 ## 配置
 
-在`./plugins/BanExplosion/config/config.json`中，你可以设置拦截爆炸的实体，以及爆炸参数。
+在`./plugins/BanExplosion/config/config.json`中，你可以设置拦截的爆炸以及爆炸参数。
 
 ```jsonc
 {
@@ -34,8 +33,6 @@
             "allowDestroy": false,
             "allowFire": false
         },
-        // 需要注意的是，床和重生锚只有第一个开关有作用
-        // 受底层限制，我们做不了太多。
         "minecraft:bed": {
             "allowExplosion": true,
             "maxRadius": 3.40282347e+38,

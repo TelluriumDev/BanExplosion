@@ -6,16 +6,18 @@
 #include <ll/api/mod/RegisterHelper.h>
 #include <ll/api/service/Bedrock.h>
 #include <mc/common/ActorUniqueID.h>
-#include <mc/deps/core/string/HashedString.h>
-#include <mc/world/actor/Actor.h>
+#include <mc/deps/core/math/Vec3.h>
+#include <mc/world/level/BlockPos.h>
 #include <mc/world/actor/player/Player.h>
 #include <mc/world/level/Level.h>
 #include <mc/world/level/block/BedBlock.h>
+#include <mc/world/level/block/Block.h>
 #include <mc/world/level/block/RespawnAnchorBlock.h>
-#include <mc/world/level/block/VanillaBlockTypeIds.h>
 #include <mc/world/level/dimension/Dimension.h>
 
 namespace BanExplosion {
+
+thread_local std::string mTypeName = "";
 
 LL_TYPE_INSTANCE_HOOK(
     BedBlockUseHook,
@@ -27,10 +29,26 @@ LL_TYPE_INSTANCE_HOOK(
     BlockPos const& pos,
     uchar           face
 ) {
-    return player.getDimension().mayRespawnViaBed() ? origin(player, pos, face) : false;
+    mTypeName   = getTypeName();
+    auto result = origin(player, pos, face);
+    mTypeName   = "";
+    return result;
 }
 
-LL_TYPE_STATIC_HOOK(RespawnAnchorBlockExplodeHook, HookPriority::Normal, RespawnAnchorBlock, &RespawnAnchorBlock::_explode, void, Player&, BlockPos const&, BlockSource&, Level&) {
+LL_TYPE_STATIC_HOOK(
+    RespawnAnchorBlockExplodeHook,
+    HookPriority::Normal,
+    RespawnAnchorBlock,
+    &RespawnAnchorBlock::_explode,
+    void,
+    Player&         player,
+    BlockPos const& pos,
+    BlockSource&    region,
+    Level&          level
+) {
+    mTypeName = region.getBlock(pos).getTypeName();
+    origin(player, pos, region, level);
+    mTypeName = "";
 }
 
 Entry& Entry::getInstance() {
@@ -39,7 +57,7 @@ Entry& Entry::getInstance() {
 }
 
 bool Entry::load() {
-    auto const& path = getSelf().getConfigDir() / "config.json";
+   auto const& path = getSelf().getConfigDir() / "config.json";
     try {
         ll::config::loadConfig(getConfig(), path);
     } catch (...) {}
@@ -51,24 +69,20 @@ bool Entry::enable() {
     mListener = ll::event::EventBus::getInstance().emplaceListener<ila::mc::ExplosionBeforeEvent>(
         [this](ila::mc::ExplosionBeforeEvent& event) -> void {
             auto& explosion = event.getExplosion();
-            if (auto* actor = ll::service::getLevel()->fetchEntity(explosion.mSourceID, false)) {
-                auto setting = getConfig().explosionSetting.contains(actor->getTypeName())
-                                 ? getConfig().explosionSetting[actor->getTypeName()]
-                                 : getConfig().defaultSetting;
-                if (!setting.allowExplosion) return event.cancel();
-                if (!setting.allowDestroy) explosion.setBreaking(false);
-                if (!setting.allowFire) explosion.setFire(false);
+            auto  typeName  = mTypeName;
+            if (typeName.empty()) {
+                auto* actor = ll::service::getLevel()->fetchEntity(explosion.mSourceID, false);
+                typeName    = actor == nullptr ? event.blockSource().getBlock(explosion.mPos.get()).getTypeName()
+                                               : actor->getTypeName();
             }
+            auto setting = getConfig().explosionSetting.contains(typeName) ? getConfig().explosionSetting[typeName]
+                                                                           : getConfig().defaultSetting;
+            if (!setting.allowExplosion) return event.cancel();
+            if (!setting.allowDestroy) explosion.setBreaking(false);
+            if (!setting.allowFire) explosion.setFire(false);
         }
     );
-    if (getConfig().explosionSetting.contains(VanillaBlockTypeIds::Bed())
-        && !getConfig().explosionSetting[VanillaBlockTypeIds::Bed()].allowExplosion) {
-        BedBlockUseHook::hook();
-    }
-    if (getConfig().explosionSetting.contains(VanillaBlockTypeIds::RespawnAnchor())
-        && !getConfig().explosionSetting[VanillaBlockTypeIds::RespawnAnchor()].allowExplosion) {
-        RespawnAnchorBlockExplodeHook::hook();
-    }
+    ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>().hook();
     return true;
 }
 
