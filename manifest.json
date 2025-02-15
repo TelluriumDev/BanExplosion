@@ -6,7 +6,7 @@
     "author": "TelluriumDev",
     "description": "A Plugin to control explosions in LeviLamina",
     "extraInfo": {
-        "sentryDsn": "https://6bc1177dae9c5ac2ad11c60d4432d76a@o4508796501819392.ingest.de.sentry.io/4508801337196624",
+        "sentryDsn": "https://91543743388864dd3fa13d39676c2bb3@o4508715047583744.ingest.us.sentry.io/4508801336803328",
         "sentryUploadType": "sus"
     },
     "dependencies": [
