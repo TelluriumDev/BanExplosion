@@ -12,19 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added debug output
+- Added debug output @zimuya4153 
 
 ### Fixed
 
-- Fixed custom block explosion
-- Fixed custom max explosion radius
+- Fixed custom block explosion @zimuya4153 
+- Fixed custom max explosion radius @zimuya4153 
 
 
 ## [1.0.1] - 2025-2-12
 
 ### Fixed
 
-- Fixed LL Memory Operator
+- Fixed LL Memory Operator @Singl-Daemon
 
 
 ## [1.0.0] - 2025-2-12
