@@ -80,6 +80,7 @@ bool Entry::enable() {
             if (!setting.allowExplosion) return event.cancel();
             if (!setting.allowDestroy) explosion.setBreaking(false);
             if (!setting.allowFire) explosion.setFire(false);
+            if (setting.maxRadius < explosion.mRadius) explosion.mRadius = setting.maxRadius;
         }
     );
     ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>().hook();
