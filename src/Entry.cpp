@@ -77,6 +77,15 @@ bool Entry::enable() {
             }
             auto setting = getConfig().explosionSetting.contains(typeName) ? getConfig().explosionSetting[typeName]
                                                                            : getConfig().defaultSetting;
+            if (getSelf().getLogger().getLevel() >= ll::io::LogLevel::Debug) {
+                getSelf().getLogger().debug(
+                    "Explosion: {0} at {1}(DimId: {2}), setting: {3}",
+                    typeName,
+                    explosion.mPos->toString(),
+                    explosion.mRegion.getDimension().mName.get(),
+                    ll::reflection::serialize<nlohmann::ordered_json>(setting).value().dump(4)
+                );
+            }
             if (!setting.allowExplosion) return event.cancel();
             if (!setting.allowDestroy) explosion.setBreaking(false);
             if (!setting.allowFire) explosion.setFire(false);
