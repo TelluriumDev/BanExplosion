@@ -1,4 +1,5 @@
 #include "Config.h"
+
 #include <ll/api/event/ListenerBase.h>
 #include <ll/api/mod/NativeMod.h>
 
@@ -24,9 +25,9 @@ public:
     Config& getConfig() { return mConfig; }
 
 private:
-    ll::mod::NativeMod&      mSelf;
-    Config                   mConfig;
-    ll::event::ListenerPtr   mListener;
+    ll::mod::NativeMod&    mSelf;
+    Config                 mConfig;
+    ll::event::ListenerPtr mListener;
 };
 
 } // namespace BanExplosion

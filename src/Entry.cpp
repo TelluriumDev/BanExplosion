@@ -1,19 +1,23 @@
 #include "Entry.h"
+
 #include <ila/event/minecraft/world/ExplosionEvent.h>
+
 #include <ll/api/Config.h>
 #include <ll/api/event/EventBus.h>
 #include <ll/api/memory/Hook.h>
 #include <ll/api/mod/RegisterHelper.h>
 #include <ll/api/service/Bedrock.h>
-#include <mc/common/ActorUniqueID.h>
+
 #include <mc/deps/core/math/Vec3.h>
-#include <mc/world/level/BlockPos.h>
+#include <mc/legacy/ActorUniqueID.h>
 #include <mc/world/actor/player/Player.h>
+#include <mc/world/level/BlockPos.h>
 #include <mc/world/level/Level.h>
 #include <mc/world/level/block/BedBlock.h>
 #include <mc/world/level/block/Block.h>
 #include <mc/world/level/block/RespawnAnchorBlock.h>
 #include <mc/world/level/dimension/Dimension.h>
+
 
 namespace BanExplosion {
 
@@ -57,7 +61,7 @@ Entry& Entry::getInstance() {
 }
 
 bool Entry::load() {
-   auto const& path = getSelf().getConfigDir() / "config.json";
+    auto const& path = getSelf().getConfigDir() / "config.json";
     try {
         ll::config::loadConfig(getConfig(), path);
     } catch (...) {}
@@ -87,22 +91,22 @@ bool Entry::enable() {
                 );
             }
             if (!setting.allowExplosion) return event.cancel();
-            if (!setting.allowDestroy) explosion.setBreaking(false);
-            if (!setting.allowFire) explosion.setFire(false);
+            if (!setting.allowDestroy) explosion.mBreaking = false;
+            if (!setting.allowFire) explosion.mFire = false;
             if (setting.maxRadius < explosion.mRadius) explosion.mRadius = setting.maxRadius;
         }
     );
-    ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>().hook();
+    ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>::hook();
     return true;
 }
 
-bool Entry::disable() {
+bool Entry::disable() /* NOLINT */ {
     ll::event::EventBus::getInstance().removeListener(mListener);
-    ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>().unhook();
+    ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook>::unhook();
     return true;
 }
 
-bool Entry::unload() { return true; }
+bool Entry::unload() /* NOLINT */ { return true; }
 
 } // namespace BanExplosion
 

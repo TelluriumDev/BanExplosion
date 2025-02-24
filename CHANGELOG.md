@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2025-2-24
+
+## Added
+
+- Support 1.21.60 @Singl-Daemon
+
 
 ## [1.0.2] - 2025-2-15
 
@@ -33,7 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release @zimuya4153 @Singl-Daemon
 
-[Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.3...HEAD
+[1.0.2]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.3
 [1.0.2]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.2
 [1.0.1]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.1
 [1.0.0]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.0
