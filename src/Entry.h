@@ -1,3 +1,4 @@
+#pragma once
 #include "Config.h"
 
 #include <ll/api/event/ListenerBase.h>

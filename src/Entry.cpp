@@ -9,7 +9,7 @@
 #include <ll/api/service/Bedrock.h>
 
 #include <mc/deps/core/math/Vec3.h>
-#include <mc/legacy/ActorUniqueID.h>
+#include <mc/legacy/ActorUniqueID.h> // IWYU pragma: keep
 #include <mc/world/actor/player/Player.h>
 #include <mc/world/level/BlockPos.h>
 #include <mc/world/level/Level.h>
@@ -21,9 +21,9 @@
 
 namespace BanExplosion {
 
-thread_local std::string mTypeName = "";
+thread_local std::string mTypeName;
 
-LL_TYPE_INSTANCE_HOOK(
+LL_TYPE_INSTANCE_HOOK( // NOLINT
     BedBlockUseHook,
     HookPriority::Normal,
     BedBlock,
@@ -33,13 +33,13 @@ LL_TYPE_INSTANCE_HOOK(
     BlockPos const& pos,
     uchar           face
 ) {
-    mTypeName   = getTypeName();
-    auto result = origin(player, pos, face);
-    mTypeName   = "";
+    mTypeName         = getTypeName();
+    const auto result = origin(player, pos, face);
+    mTypeName         = "";
     return result;
 }
 
-LL_TYPE_STATIC_HOOK(
+LL_TYPE_STATIC_HOOK( // NOLINT
     RespawnAnchorBlockExplodeHook,
     HookPriority::Normal,
     RespawnAnchorBlock,
@@ -72,12 +72,12 @@ bool Entry::load() {
 bool Entry::enable() {
     mListener = ll::event::EventBus::getInstance().emplaceListener<ila::mc::ExplosionBeforeEvent>(
         [this](ila::mc::ExplosionBeforeEvent& event) -> void {
-            auto& explosion = event.getExplosion();
+            auto& explosion = event.explosion();
             auto  typeName  = mTypeName;
             if (typeName.empty()) {
-                auto* actor = ll::service::getLevel()->fetchEntity(explosion.mSourceID, false);
-                typeName    = actor == nullptr ? event.blockSource().getBlock(explosion.mPos.get()).getTypeName()
-                                               : actor->getTypeName();
+                const auto* actor = ll::service::getLevel()->fetchEntity(explosion.mSourceID, false);
+                typeName          = actor == nullptr ? event.blockSource().getBlock(explosion.mPos.get()).getTypeName()
+                                                     : actor->getTypeName();
             }
             auto setting = getConfig().explosionSetting.contains(typeName) ? getConfig().explosionSetting[typeName]
                                                                            : getConfig().defaultSetting;

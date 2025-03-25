@@ -4,9 +4,9 @@ add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 add_repositories("miracleforest-repo https://github.com/MiracleForest/xmake-repo")
 
 add_requires(
-    "levilamina main", {configs = {target_type = "server"}},
+    "levilamina 1.1.1", {configs = {target_type = "server"}},
     "levibuildscript 0.3.0", 
-    "ilistenattentively 0.3.0"
+    "ilistenattentively 0.4.0"
 )
 
 if not has_config("vs_runtime") then

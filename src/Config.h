@@ -1,3 +1,4 @@
+#pragma once
 #include <cfloat>
 #include <string>
 #include <unordered_map>
