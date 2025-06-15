@@ -4,9 +4,8 @@ add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 add_repositories("miracleforest-repo https://github.com/MiracleForest/xmake-repo")
 
 add_requires(
-    "levilamina 1.1.1", {configs = {target_type = "server"}},
-    "levibuildscript 0.3.0", 
-    "ilistenattentively 0.4.0"
+    "levilamina 1.2.1", {configs = {target_type = "server"}},
+    "levibuildscript"
 )
 
 if not has_config("vs_runtime") then
@@ -34,10 +33,7 @@ target("BanExplosion")
         "_HAS_CXX20",
         "_HAS_CXX23"
     )
-    add_packages(
-        "levilamina",
-        "ilistenattentively"
-    )
+    add_packages("levilamina")
     set_exceptions("none")
     set_kind("shared")
     set_optimize("fastest")

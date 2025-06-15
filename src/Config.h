@@ -5,7 +5,6 @@
 
 namespace BanExplosion {
 struct Config {
-public:
     struct ExplosionConfig {
         bool  allowExplosion = true;
         float maxRadius      = FLT_MAX;
@@ -13,7 +12,6 @@ public:
         bool  allowFire      = false;
     };
 
-public:
     int                                              version = 1;
     ExplosionConfig                                  defaultSetting;
     std::unordered_map<std::string, ExplosionConfig> explosionSetting;

@@ -7,12 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5] - 2025-6-15
+
+### Added
+
+- Update `LeviLamina` to 1.2.1 @Singl-Daemon
+
+### Changed
+
+- Remove the dependency on `iListenAttentively` @Singl-Daemon
+
 ## [1.0.4] - 2025-3-25
 
 ### Added
 
-- Update LeviLamina to 1.1.1 @Singl-Daemon
-- Update iListenAttentively to 0.4.0 @Singl-Daemon
+- Update `LeviLamina` to 1.1.1 @Singl-Daemon
+- Update `iListenAttentively` to 0.4.0 @Singl-Daemon
 
 ## [1.0.3] - 2025-2-24
 
@@ -44,6 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release @zimuya4153 @Singl-Daemon
 
 [Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.4...HEAD
+
+[1.0.5]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.5
 
 [1.0.4]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.4
 

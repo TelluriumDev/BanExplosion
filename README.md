@@ -9,9 +9,7 @@
 
 ## 安装
 
-在安装之前，确保你安装了[iListenAttentively](https://github.com/MiracleForest/iListenAttentively-Release)插件。
-
-之后，在Releases或者Action中下载最新版本的压缩包，并把里面的内容解压到`plugins`文件夹中。
+在Releases或者Action中下载最新版本的压缩包，并把里面的内容解压到`plugins`文件夹中。
 
 ## 配置
 

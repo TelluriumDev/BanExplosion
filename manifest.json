@@ -8,10 +8,5 @@
     "extraInfo": {
         "sentryDsn": "https://91543743388864dd3fa13d39676c2bb3@o4508715047583744.ingest.us.sentry.io/4508801336803328",
         "sentryUploadType": "sus"
-    },
-    "dependencies": [
-        {
-            "name": "iListenAttentively"
-        }
-    ]
+    }
 }
