@@ -4,7 +4,6 @@
 #include <ll/api/event/EventBus.h>
 #include <ll/api/memory/Hook.h>
 #include <ll/api/mod/RegisterHelper.h>
-#include <ll/api/service/Bedrock.h>
 
 #include <mc/deps/core/math/Vec3.h>
 #include <mc/world/actor/player/Player.h>
@@ -54,7 +53,7 @@ LL_TYPE_INSTANCE_HOOK( // NOLINT
     ExplodeHook, HookPriority::Normal, Explosion, &Explosion::explode, bool) {
     auto& typeName = mTypeName;
     if (typeName.empty()) {
-        const auto* actor = ll::service::getLevel()->fetchEntity(mSourceID, false);
+        const auto* actor = mRegion.getDimension().fetchEntity(mSourceID.get(), false);
         typeName          = actor == nullptr ? mRegion.getBlock(mPos.get()).getTypeName() : actor->getTypeName();
     }
     const auto& config = Entry::getInstance().getConfig();

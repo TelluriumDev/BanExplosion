@@ -1,7 +1,7 @@
 {
     "format_version": 2,
     "tooth": "github.com/TelluriumDev/BanExplosion",
-    "version": "1.0.5",
+    "version": "1.0.5-hotfix",
     "info": {
         "name": "BanExplosion",
         "description": "A Plugin to control explosions in LeviLamina",

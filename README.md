@@ -73,12 +73,6 @@
             "allowDestroy": false,
             "allowFire": false
         },
-        "minecraft:wither_skull_dangerous": {
-            "allowExplosion": true,
-            "maxRadius": 3.40282347e+38,
-            "allowDestroy": false,
-            "allowFire": false
-        },
         "minecraft:fireball": {
             "allowExplosion": true,
             "maxRadius": 3.40282347e+38,

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5-hotfix] - 2025-6-15
+
+### Changed
+
+- Fix crash in `level->fetchEntity(...)`
+
 ## [1.0.5] - 2025-6-15
 
 ### Added
@@ -54,6 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release @zimuya4153 @Singl-Daemon
 
 [Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.4...HEAD
+
+[1.0.5-hotfix]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.5-hotfix
 
 [1.0.5]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.5
 
