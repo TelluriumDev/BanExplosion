@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.5-hotfix] - 2025-6-15
+## [1.0.6] - 2025-6-17
+
+### Added
+
+- Add specialization for `minecraft:wither`
+
+## [1.0.5-hotfix] - 2025-6-16
 
 ### Changed
 
@@ -60,6 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release @zimuya4153 @Singl-Daemon
 
 [Unreleased]: https://github.com/TelluriumDev/BanExplosion/compare/v1.0.4...HEAD
+
+[1.0.6]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.6
 
 [1.0.5-hotfix]: https://github.com/TelluriumDev/BanExplosion/releases/tag/v1.0.5-hotfix
 
