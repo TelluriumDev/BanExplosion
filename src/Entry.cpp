@@ -30,12 +30,24 @@ void logExplosionInfo(
     const Config::ExplosionConfig& setting
 ) {
     Entry::getInstance().getSelf().getLogger().debug(
-        "Explosion: {0} at {1} (DimId: {2}), setting: {3}",
+        "Explosion: {0} at {1} (Dimension: {2}), setting: {3}",
         typeName,
         pos,
         dim,
         ll::reflection::serialize<nlohmann::ordered_json>(setting).value().dump(4)
     );
+}
+
+Config::ExplosionConfig
+getExplosionConfig(const Config& config, const std::string& dimName, const std::string& typeName) {
+    if (const auto it = config.ExplosionSetting.find(dimName); it != config.ExplosionSetting.end()) {
+        if (const auto customIt = it->second.CustomSettings.find(typeName);
+            customIt != it->second.CustomSettings.end()) {
+            return customIt->second;
+        }
+        return it->second.DefaultSetting;
+    }
+    return config.GlobalSetting;
 }
 
 } // namespace
@@ -81,45 +93,47 @@ LL_TYPE_INSTANCE_HOOK( // NOLINT
     int                          range,
     WitherBoss::WitherAttackType attackType
 ) {
-    const std::string_view& typeName = "minecraft:wither";
-    const auto&             config   = Entry::getInstance().getConfig();
-    const auto&             logger   = Entry::getInstance().getSelf().getLogger();
-    const auto&             setting =
-        config.explosionSetting.contains(typeName.data())
-                        ? config.explosionSetting.at(std::unordered_map<std::string, Config::ExplosionConfig>::key_type(typeName))
-                        : config.defaultSetting;
+    const std::string& typeName = "minecraft:wither";
+    const auto&        config   = Entry::getInstance().getConfig();
+    const auto&        logger   = Entry::getInstance().getSelf().getLogger();
+    const auto&        dimName  = region.getDimension().mName.get();
+    const auto&        setting  = getExplosionConfig(config, dimName, typeName);
 
     if (logger.getLevel() >= ll::io::LogLevel::Debug) {
-        logExplosionInfo(typeName, bb.toString(), region.getDimension().mName.get(), setting);
+        logExplosionInfo(typeName, bb.toString(), dimName, setting);
     }
-    if (!setting.allowExplosion || !setting.allowDestroy) return;
-    if (setting.maxRadius < range) range = static_cast<int>(setting.maxRadius);
+
+    if (!setting.AllowExplosion || !setting.AllowDestroy) return;
+    range = std::min(range, static_cast<int>(setting.MaxRadius));
     return origin(level, bb, region, range, attackType);
 }
 
-LL_TYPE_INSTANCE_HOOK( // NOLINT
-    ExplodeHook, HookPriority::Normal, Explosion, &Explosion::explode, bool) {
-    const auto& config   = Entry::getInstance().getConfig();
-    const auto& logger   = Entry::getInstance().getSelf().getLogger();
-    auto&       typeName = mTypeName;
-    const auto& setting =
-        config.explosionSetting.contains(typeName) ? config.explosionSetting.at(typeName) : config.defaultSetting;
 
-    if (typeName.empty()) {
+LL_TYPE_INSTANCE_HOOK(ExplodeHook, HookPriority::Normal, Explosion, &Explosion::explode, bool) {
+    const auto& config  = Entry::getInstance().getConfig();
+    const auto& logger  = Entry::getInstance().getSelf().getLogger();
+    const auto& dimName = mRegion.getDimension().mName.get();
+
+    const std::string& typeName = [&]() -> std::string {
+        if (!mTypeName.empty()) return mTypeName;
         const auto* actor = mRegion.getDimension().fetchEntity(mSourceID.get(), false);
-        typeName          = actor == nullptr ? mRegion.getBlock(mPos.get()).getTypeName() : actor->getTypeName();
-    }
+        return actor ? actor->getTypeName() : mRegion.getBlock(mPos.get()).getTypeName();
+    }();
+
+    const auto setting = getExplosionConfig(config, dimName, typeName);
 
     if (logger.getLevel() >= ll::io::LogLevel::Debug) {
-        logExplosionInfo(typeName, mPos->toString(), mRegion.getDimension().mName.get(), setting);
+        logExplosionInfo(typeName, mPos->toString(), dimName, setting);
     }
 
-    if (!setting.allowExplosion) return false;
-    if (!setting.allowDestroy) mBreaking = false;
-    if (!setting.allowFire) mFire = false;
-    if (setting.maxRadius < mRadius) mRadius = setting.maxRadius;
+    if (!setting.AllowExplosion) return false;
+    mBreaking &= setting.AllowDestroy;
+    mFire     &= setting.AllowFire;
+    mRadius    = std::min(mRadius, setting.MaxRadius);
+
     return origin();
 }
+
 
 using Hooks =
     ll::memory::HookRegistrar<BedBlockUseHook, RespawnAnchorBlockExplodeHook, WitherHurtExplodeHook, ExplodeHook>;

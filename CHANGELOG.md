@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-6-17
+
+### Notice
+
+This is a minor change.
+
+Because of huge changes in the config file, you must update your config file manually.
+
+### Added
+
+- Custom configurations have been enhanced, now you can customize the explosion settings by dimension.
+
 ## [1.0.6] - 2025-6-17
 
 ### Added
