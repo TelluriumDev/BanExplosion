@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2025-11-18
+
+### Added
+
+- Implement specialized detection for charged creepers @Singl-Daemon
+
+### Note
+
+The current key name for charged creepers is `minecraft:lightning_creeper`, and it is no longer related to `minecraft:creeper`.
+
+So please be extra careful when writing the configuration file.
+
 ## [1.1.1] - 2025-11-18
 
 ### Added

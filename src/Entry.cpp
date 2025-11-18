@@ -50,6 +50,27 @@ getExplosionConfig(const Config& config, const std::string& dimName, const std::
     return config.GlobalSetting;
 }
 
+// SB Mojang
+bool hasChargedCreeper(CompoundTag const& tag) {
+    constexpr std::string_view defsKey   = "definitions";
+    constexpr std::string_view targetDef = "+minecraft:charged_creeper";
+
+    if (!tag.contains(defsKey, Tag::Type::List)) {
+        return false;
+    }
+
+    for (auto const& defs = tag[defsKey].get<ListTag>(); auto const& entry : defs) {
+        if (!entry || entry->getId() != Tag::Type::String) {
+            continue;
+        }
+        if (std::string_view(entry.get<StringTag>()) == targetDef) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 } // namespace
 
 LL_TYPE_INSTANCE_HOOK( // NOLINT
@@ -121,10 +142,22 @@ LL_TYPE_INSTANCE_HOOK(  // NOLINT
     const auto& logger  = Entry::getInstance().getSelf().getLogger();
     const auto& dimName = mRegion.getDimension().mName.get();
 
-    const std::string& typeName = [&]() -> std::string {
+    const std::string typeName = [&]() -> std::string {
         if (!mTypeName.empty()) return mTypeName;
         const auto* actor = mRegion.getDimension().fetchEntity(mSourceID.get(), false);
-        return actor ? actor->getTypeName() : mRegion.getBlock(mPos.get()).getTypeName();
+        if (!actor) {
+            return mRegion.getBlock(mPos.get()).getTypeName();
+        }
+
+        std::string actorType = actor->getTypeName();
+        if (actorType == "minecraft:creeper") {
+            const auto tag = std::make_unique<CompoundTag>();
+            actor->save(*tag);
+            if (hasChargedCreeper(*tag)) {
+                return "minecraft:lightning_creeper";
+            }
+        }
+        return actorType;
     }();
 
     const auto setting = getExplosionConfig(config, dimName, typeName);
