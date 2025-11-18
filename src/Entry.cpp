@@ -24,9 +24,9 @@ thread_local std::string mTypeName;
 namespace {
 
 void logExplosionInfo(
-    const std::string_view&        typeName,
-    const std::string_view&        pos,
-    const std::string_view&        dim,
+    const std::string_view         typeName,
+    const std::string_view         pos,
+    const std::string_view         dim,
     const Config::ExplosionConfig& setting
 ) {
     Entry::getInstance().getSelf().getLogger().debug(
@@ -109,7 +109,14 @@ LL_TYPE_INSTANCE_HOOK( // NOLINT
 }
 
 
-LL_TYPE_INSTANCE_HOOK(ExplodeHook, HookPriority::Normal, Explosion, &Explosion::explode, bool) {
+LL_TYPE_INSTANCE_HOOK(  // NOLINT
+    ExplodeHook,
+    HookPriority::Normal,
+    Explosion,
+    &Explosion::explode,
+    bool,
+    IRandom& random
+) {
     const auto& config  = Entry::getInstance().getConfig();
     const auto& logger  = Entry::getInstance().getSelf().getLogger();
     const auto& dimName = mRegion.getDimension().mName.get();
@@ -131,7 +138,7 @@ LL_TYPE_INSTANCE_HOOK(ExplodeHook, HookPriority::Normal, Explosion, &Explosion::
     mFire     &= setting.AllowFire;
     mRadius    = std::min(mRadius, setting.MaxRadius);
 
-    return origin();
+    return origin(random);
 }
 
 
@@ -162,7 +169,7 @@ bool Entry::disable() /* NOLINT */ {
     return true;
 }
 
-bool Entry::unload() /* NOLINT */ { return true; }
+bool Entry::unload() { return true; }
 
 } // namespace BanExplosion
 
