@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-11-18
+
+### Added
+
+- Update `LeviLamina` to 1.7.3 @Singl-Daemon
+
 ## [1.1.0] - 2025-6-17
 
 ### Notice
