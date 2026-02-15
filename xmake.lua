@@ -3,7 +3,7 @@ add_rules("mode.debug", "mode.release")
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 
 add_requires(
-    "levilamina 1.7.3", {configs = {target_type = "server"}},
+    "levilamina", {configs = {target_type = "server"}},
     "levibuildscript"
 )
 
@@ -27,10 +27,7 @@ target("BanExplosion")
     )
     add_defines(
         "NOMINMAX", 
-        "UNICODE", 
-        "_HAS_CXX17",
-        "_HAS_CXX20",
-        "_HAS_CXX23"
+        "UNICODE"
     )
     add_packages("levilamina")
     set_exceptions("none")

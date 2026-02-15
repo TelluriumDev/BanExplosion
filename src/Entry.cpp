@@ -187,8 +187,15 @@ bool Entry::load() {
     auto const& path = getSelf().getConfigDir() / "config.json";
     try {
         ll::config::loadConfig(getConfig(), path);
-    } catch (...) {}
-    ll::config::saveConfig(getConfig(), path);
+    } catch (std::exception& e) {
+        getSelf().getLogger().error("Exception: {}", e.what());
+        ll::config::saveConfig(getConfig(), path);
+    }
+
+    if (getConfig().version == 0) {
+        getSelf().getLogger().error("Invalid config version, please check your config file.");
+        return false;
+    }
     return true;
 }
 
@@ -202,7 +209,7 @@ bool Entry::disable() /* NOLINT */ {
     return true;
 }
 
-bool Entry::unload() { return true; }
+bool Entry::unload() /* NOLINT */ { return true; }
 
 } // namespace BanExplosion
 
